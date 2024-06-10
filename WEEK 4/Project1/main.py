@@ -1,6 +1,5 @@
 import tkinter as tk
 from tkinter import messagebox
-from PIL import Image, ImageTk
 
 def welcomeMessage(username, names):
     # Create a Tkinter window
@@ -12,8 +11,8 @@ def welcomeMessage(username, names):
     label_1.pack()
     label_2 = tk.Label(window, text="This is GIG Logistics biometrics")
     label_2.pack()
-    label_3 = tk.Label(window, text=f"Other names: {names}")
-    label_3.pack()
+    label_3 = tk.Label(window, text=f"Other names: \n{names}")
+    label_3.pack()    
 
 
 
@@ -22,11 +21,9 @@ def welcomeMessage(username, names):
 
 def submit():
     username = username_entry.get()
-    password = password_entry.get()
+    department = department_entry.get()
     names = []
-    name = ""
-    paswod = ""
-
+    
     officeinfo = {"ADENIRAN": "logistics",
               "ADEWUMI": "accounting",
               "ADOH-AJAGBE": "delivery",
@@ -68,14 +65,15 @@ def submit():
               "UDE-IBE": "delivery",
               "UMEH": "administration"}
     for key in officeinfo:
-        if officeinfo[key] == password:
-            names.append(key)
-            if key == username and officeinfo[key]== password:
-                name += key
-                paswod += officeinfo[key]
-    if name == username and paswod == password:
-        welcomeMessage(username, names)
-    else:
+        if officeinfo[key] == department:
+            names.append(key);
+    a = 0;
+    for i in officeinfo:
+        if username == i and department == officeinfo[i]:
+            welcomeMessage(username, names);
+        else:
+            a+=1;
+    if a >= 40:        
         messagebox.showerror("Login","Invalid username or password")
 
 # Create main window
@@ -91,10 +89,10 @@ username_entry = tk.Entry(root)
 username_entry.pack()
 
 # Create password label and entry
-password_label = tk.Label(root, text="password:")
-password_label.pack()
-password_entry = tk.Entry(root, show="*")
-password_entry.pack()
+department_label = tk.Label(root, text="department:")
+department_label.pack()
+department_entry = tk.Entry(root)
+department_entry.pack()
 
 # Create submit button
 submit_button = tk.Button(root, text="Submit", command=submit)
